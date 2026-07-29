@@ -1,0 +1,30 @@
+[
+    {
+        "patient_id": 1,
+        "specialty": "General Practice",
+        "date": "2026-12-01",
+        "time": "10:00 AM",
+        "created_at": "2026-07-04T07:52:28.496948"
+    },
+    {
+        "patient_id": 1,
+        "specialty": "General Practice",
+        "date": "2026-12-01",
+        "time": "10:00 AM",
+        "created_at": "2026-07-04T07:52:28.500526"
+    },
+    {
+        "patient_id": 1,
+        "specialty": "Cardiology",
+        "date": "2026-12-01",
+        "time": "10:00 AM",
+        "created_at": "2026-07-29T11:28:06.038341"
+    },
+    {
+        "patient_id": 1,
+        "specialty": "Cardiology",
+        "date": "2026-12-01",
+        "time": "10:00 AM",
+        "created_at": "2026-07-29T11:28:06.044805"
+    }
+]

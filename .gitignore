@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual Environment
+venv/
+
+# Environment Variables
+.env
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Database
+healthcare_agent.db
+
+# Logs
+*.log
+
+# Pytest
+.pytest_cache/
+
+# Build
+dist/
+build/
+
+# Uploads
+uploads/
+
+# Documentation (optional)
+# Autonomous_Healthcare_Agent_Report.docx
+Autonomous_Healthcare_Agent_Report.docx
