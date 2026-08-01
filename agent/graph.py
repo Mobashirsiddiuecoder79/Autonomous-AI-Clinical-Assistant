@@ -4,20 +4,24 @@ from langgraph.graph import StateGraph, END
 
 from agent.state import AgentState
 
+from agent.edges import (
+    route_after_intent,
+    route_after_planner,
+    route_after_reasoner,
+    route_after_reflector,
+)
 from agent.nodes import (
     intent_detector_node,
     planner_node,
     reasoner_node,
     tool_executor_node,
-    reflector_node,
-    final_answer_node
+    final_answer_node,
 )
 
-from agent.edges import (
-    route_after_intent,
-    route_after_reasoner,
-    route_after_reflector
-)
+# Temporary until we migrate reflector
+from agent.legacy_nodes import reflector_node
+
+
 
 from config.logging_config import system_logger
 from security.sanitizer import InputSanitizer
@@ -88,9 +92,13 @@ workflow.add_conditional_edges(
     },
 )
 
-workflow.add_edge(
+workflow.add_conditional_edges(
     "planner",
-    "reasoner"
+    route_after_planner,
+    {
+        "reasoner": "reasoner",
+        "final_answer": "final_answer",
+    },
 )
 
 workflow.add_conditional_edges(
@@ -100,6 +108,7 @@ workflow.add_conditional_edges(
         "tool_executor": "tool_executor",
         "reflector": "reflector",
         "reasoner": "reasoner",
+        "final_answer": "final_answer",
     },
 )
 
@@ -137,9 +146,11 @@ compiled_graph = workflow.compile()
 memory_manager = MemoryManager()
 
 
+
 # ============================================================
 # Execute Workflow
 # ============================================================
+
 
 def run_agent_flow(
     session_id: str,
@@ -181,37 +192,45 @@ def run_agent_flow(
 
     initial_state = {
 
-        "messages": [
+    "messages": [
+        {
+            "role": "user",
+            "content": cleaned_prompt
+        }
+    ],
 
-            {
-                "role": "user",
-                "content": cleaned_prompt
-            }
+    "patient_id": patient_id,
 
-        ],
+    "session_id": session_id,
 
-        "patient_id": patient_id,
+    "patient_context": None,
 
-        "session_id": session_id,
+    "intent": None,
 
-        "intent": None,
+    "reasoning": None,
 
-        "plan": [],
+    "requires_tool": False,
 
-        "completed_tasks": [],
+    "plan": [],
 
-        "current_task": None,
+    "completed_tasks": [],
 
-        "next_tool_call": None,
+    "current_task": None,
 
-        "tool_outputs": [],
+    "tool_calls": [],
 
-        "errors": [],
+    "next_tool_call": None,
 
-        "next_step": "intent_detector",
+    "tool_outputs": [],
 
-        "final_output": None
-    }
+    "follow_up_question": None,
+
+    "errors": [],
+
+    "next_step": "intent_detector",
+
+    "final_output": None,
+}
 
     # --------------------------------------------------------
     # Save User Message
@@ -274,3 +293,6 @@ def run_agent_flow(
 
             "tool_outputs": []
         }
+
+    
+    

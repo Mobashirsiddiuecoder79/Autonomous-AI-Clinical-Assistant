@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     )
 
     OPENAI_API_KEY: str = "mock-openai-key-for-testing"
+    GEMINI_API_KEY: str = ""
+    GEMINI_MODEL: str = "gemini-3.6-flash"
     DATABASE_URL: str = "sqlite:///./healthcare_agent.db"
     ENCRYPTION_KEY: str = "zP84b3FmXqY6W9J1k8D3vN4g8L0x1c2vB3n4m5a6s7d="
     LOG_LEVEL: str = "INFO"

@@ -1,45 +1,105 @@
 from typing import TypedDict, List, Dict, Any, Annotated, Optional
 
 
+# ==========================================================
+# MESSAGE MERGER
+# ==========================================================
+
 def append_messages(
     left: List[Dict[str, Any]],
     right: List[Dict[str, Any]]
 ) -> List[Dict[str, Any]]:
     """
-    Merge chat messages while preserving history.
+    Merge conversation history while preserving
+    previous messages.
     """
     return left + right
 
 
+# ==========================================================
+# LANGGRAPH SHARED STATE
+# ==========================================================
+
 class AgentState(TypedDict):
     """
-    Shared state passed between all LangGraph nodes.
+    Shared state passed between every LangGraph node.
     """
 
-    # Conversation history
-    messages: Annotated[List[Dict[str, Any]], append_messages]
+    # ------------------------------------------------------
+    # Conversation
+    # ------------------------------------------------------
 
-    # Patient & Session
+    messages: Annotated[
+        List[Dict[str, Any]],
+        append_messages
+    ]
+
+    # ------------------------------------------------------
+    # Patient Information
+    # ------------------------------------------------------
+
     patient_id: int
+
     session_id: str
 
-    # Intent detected from user prompt
+    patient_context: Optional[str]
+
+    # ------------------------------------------------------
+    # AI Understanding
+    # ------------------------------------------------------
+
     intent: Optional[str]
 
-    # Planning
+    reasoning: Optional[str]
+
+    requires_tool: bool
+
+    follow_up_question: Optional[str]
+
+    # ------------------------------------------------------
+    # AI Planner Output
+    # ------------------------------------------------------
+
+    tool_calls: List[
+        Dict[str, Any]
+    ]
+
+    # ------------------------------------------------------
+    # Workflow Planning
+    # ------------------------------------------------------
+
     plan: List[str]
+
     completed_tasks: List[str]
+
     current_task: Optional[str]
 
-    # Tool execution
-    next_tool_call: Optional[Dict[str, Any]]
-    tool_outputs: List[Dict[str, Any]]
+    # ------------------------------------------------------
+    # Tool Execution
+    # ------------------------------------------------------
 
-    # Error tracking
+    next_tool_call: Optional[
+        Dict[str, Any]
+    ]
+
+    tool_outputs: List[
+        Dict[str, Any]
+    ]
+
+    # ------------------------------------------------------
+    # Errors
+    # ------------------------------------------------------
+
     errors: List[str]
 
-    # Workflow control
+    # ------------------------------------------------------
+    # Workflow
+    # ------------------------------------------------------
+
     next_step: str
 
-    # Final assistant response
+    # ------------------------------------------------------
+    # Final Assistant Response
+    # ------------------------------------------------------
+
     final_output: Optional[str]
