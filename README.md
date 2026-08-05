@@ -1,367 +1,300 @@
-# 🏥 Autonomous AI Clinical Assistant
+# 🏥 Autonomous AI Clinical Assistant v3.0
 
-A production-ready **Autonomous AI Clinical Assistant** built with **Streamlit**, **LangGraph**, **OpenAI**, **SQLAlchemy**, and **FAISS**. The platform assists healthcare professionals by managing patient records, analyzing medical reports, maintaining conversational memory, and providing AI-powered clinical decision support through a modern web interface.
+An autonomous AI-powered healthcare assistant built using **LangGraph**, **Google Gemini 3.6 Flash**, **Streamlit**, **FAISS**, and **SQLite**.
+
+The assistant understands user intent, autonomously plans tasks, selects and executes clinical tools, reasons over tool outputs, and generates professional healthcare responses.
+
+---
+
+# 🚀 Version
+
+**Current Version:** `v3.0`
 
 ---
 
 # ✨ Features
 
-- 🤖 AI-powered clinical assistant
-- 👤 Patient registration and profile management
-- 📄 Medical report management
-- 💬 Conversational AI with persistent chat history
-- 🧠 Long-term semantic memory using FAISS
-- 📊 Modern healthcare dashboard
-- 📅 Appointment management
-- 💊 Medication reminders
-- 🔒 Security validation and PII protection
-- 🛠 Modular tool execution framework
-- 🗄 SQLite database with SQLAlchemy ORM
-- 🎨 Modern dark Healthcare SaaS UI
+- 🤖 Google Gemini 3.6 Flash Integration
+- 🧠 Autonomous AI Planning
+- 🔄 LangGraph Multi-Node Workflow
+- 🎯 Intent Detection
+- 📋 AI Planner
+- 🧩 AI Reasoner
+- 🔧 Dynamic Tool Execution
+- 💬 Final Answer Generator
+- 🗂️ Patient Memory Management
+- 📚 FAISS Vector Memory
+- 🔒 Input Sanitization
+- 📄 Medical Report Parsing
+- 💊 Drug Interaction Checker
+- ⚖️ BMI Calculator
+- 🩺 Symptom Assessment
+- 📅 Appointment Scheduling
+- 🌐 Streamlit Web Interface
 
 ---
 
-# 📷 Application Overview
+# 🏗️ System Architecture
 
-## Dashboard
-
-- Patient Overview
-- Health Summary
-- KPI Cards
-- Medical Reports
-- Appointments
-- Medication Reminders
-- Recent Activity
-
-## AI Assistant
-
-- Chat with AI
-- Clinical reasoning
-- Tool execution
-- Persistent conversation memory
-
-## Medical Reports
-
-- Upload reports
-- Report history
-- AI-assisted analysis
-- OCR-ready architecture
-
-## Settings
-
-- Database status
-- AI Engine status
-- Memory status
-- System configuration
+```
+                 User
+                  │
+                  ▼
+        Intent Detector
+                  │
+                  ▼
+             AI Planner
+                  │
+        ┌─────────┴─────────┐
+        │                   │
+        ▼                   ▼
+   Direct Answer      Tool Required
+        │                   │
+        │                   ▼
+        │             AI Reasoner
+        │                   │
+        │                   ▼
+        │            Tool Executor
+        │                   │
+        │                   ▼
+        │             AI Reasoner
+        │                   │
+        └──────────► Final Answer
+```
 
 ---
 
-# 🏗 Architecture
-
-The application follows a modular layered architecture.
+# 📂 Project Structure
 
 ```
 Health-care-Agent/
 
 ├── agent/
 │   ├── graph.py
-│   ├── nodes.py
-│   ├── prompts.py
-│   └── state.py
+│   ├── state.py
+│   ├── edges.py
+│   ├── legacy_nodes.py
+│   └── nodes/
+│       ├── intent.py
+│       ├── planner.py
+│       ├── reasoner.py
+│       ├── tool_executor.py
+│       ├── final_answer.py
+│       └── reflector.py
 │
 ├── config/
+│   ├── llm.py
+│   └── settings.py
 │
 ├── database/
-│   ├── connection.py
-│   ├── models.py
-│   └── operations.py
-│
 ├── frontend/
-│   ├── app.py
-│   ├── styles.css
-│   │
-│   ├── components/
-│   │   ├── cards.py
-│   │   ├── charts.py
-│   │   ├── forms.py
-│   │   ├── header.py
-│   │   ├── patient.py
-│   │   ├── sidebar.py
-│   │   ├── tables.py
-│   │   └── timeline.py
-│   │
-│   └── views/
-│       ├── dashboard.py
-│       ├── chat.py
-│       ├── reports.py
-│       └── settings.py
-│
-├── logs/
 ├── memory/
 ├── security/
-├── tests/
 ├── tools/
-│
-├── healthcare_agent.db
-├── main.py
+├── tests/
+├── logs/
 ├── requirements.txt
-└── README.md
+└── main.py
 ```
 
 ---
 
-# 🧠 Technology Stack
+# ⚙️ Technology Stack
 
-| Category | Technology |
-|----------|------------|
-| Frontend | Streamlit |
-| AI Framework | LangGraph |
-| LLM | OpenAI GPT |
-| Database | SQLite + SQLAlchemy |
-| Vector Memory | FAISS |
-| OCR | Tesseract OCR |
-| Styling | Custom CSS |
-| Language | Python 3.10+ |
-
----
-
-# 🚀 Installation
-
-## 1. Clone Repository
-
-```bash
-git clone <repository-url>
-
-cd Health-care-Agent
-```
+| Technology | Purpose |
+|------------|---------|
+| Python | Backend |
+| LangGraph | AI Workflow Engine |
+| LangChain | LLM Integration |
+| Gemini 3.6 Flash | AI Reasoning |
+| Streamlit | Web UI |
+| SQLite | Database |
+| FAISS | Vector Memory |
+| SQLAlchemy | ORM |
+| Pydantic | Data Validation |
 
 ---
 
-## 2. Create Virtual Environment
+# 🧠 Workflow
 
-```bash
-python3 -m venv venv
 ```
-
-### macOS / Linux
-
-```bash
-source venv/bin/activate
-```
-
-### Windows
-
-```bash
-venv\Scripts\activate
+User Query
+      │
+      ▼
+Intent Detection
+      │
+      ▼
+AI Planner
+      │
+      ▼
+Need Tool?
+      │
+ ┌────┴────┐
+ │         │
+No        Yes
+ │         │
+ ▼         ▼
+Final   AI Reasoner
+Answer      │
+            ▼
+     Tool Executor
+            │
+            ▼
+      AI Reasoner
+            │
+            ▼
+      Final Answer
 ```
 
 ---
 
-## 3. Install Dependencies
+# 🔧 Available Clinical Tools
+
+- BMI Calculator
+- Drug Interaction Checker
+- Symptom Assessment
+- Appointment Scheduler
+- Laboratory Report Analyzer
+- Medical Report Parser
+
+---
+
+# 💻 Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/Mobashirsiddiuecoder79/Autonomous-AI-Clinical-Assistant.git
+```
+
+Enter the project
+
+```bash
+cd Autonomous-AI-Clinical-Assistant
+```
+
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-## 4. Configure Environment Variables
-
-Create a `.env` file in the project root.
-
-Example:
+Create a `.env` file
 
 ```env
-OPENAI_API_KEY=your_openai_api_key
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+GEMINI_MODEL=gemini-3.6-flash
 
 DATABASE_URL=sqlite:///./healthcare_agent.db
 
-ENCRYPTION_KEY=your_generated_key
+LOG_LEVEL=INFO
 ```
 
-Generate an encryption key:
+Run the application
 
 ```bash
-python3 -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+streamlit run frontend/app.py
 ```
 
 ---
 
-# ▶ Running the Application
+# 💬 Example Queries
 
-Simply execute:
+### General Questions
 
-```bash
-python3 main.py
-```
+- What is diabetes?
+- What causes high blood pressure?
+- Explain asthma.
 
-or directly using Streamlit:
+### BMI
 
-```bash
-python3 -m streamlit run frontend/app.py
-```
+- Calculate BMI for 70 kg and 175 cm.
 
-The application opens at
+### Drug Interaction
 
-```
-http://localhost:8501
-```
+- Can I take Aspirin with Warfarin?
 
----
+### Symptom Assessment
 
-# 📊 Dashboard Features
+- I have chest pain and difficulty breathing.
 
-The dashboard provides:
+### Appointment
 
-- Total Patients
-- Medical Reports
-- AI Sessions
-- System Status
-- Patient Overview
-- Health Summary
-- Medical History
-- Recent Reports
-- Appointments
-- Medication Reminders
-- Recent Activity
+- Book an appointment for tomorrow morning.
+
+### Medical Reports
+
+- Analyze my blood report.
+- Summarize this medical report.
 
 ---
 
-# 🤖 AI Assistant
+# 🔒 Security Features
 
-The AI assistant can:
-
-- Answer clinical questions
-- Maintain conversation memory
-- Retrieve previous interactions
-- Execute healthcare tools
-- Assist with patient management
-- Support report interpretation
+- Prompt Injection Detection
+- Input Sanitization
+- Patient Data Isolation
+- Secure Conversation Memory
+- API Key Environment Configuration
 
 ---
 
-# 📄 Medical Reports
+# 📈 Current Development Status
 
-Supports:
+## ✅ Version 3.0
 
-- PDF upload
-- Image upload
-- OCR-ready parsing
-- Report history
-- AI report summarization
+Completed
 
----
-
-# 🔐 Security
-
-The application includes:
-
-- Prompt injection detection
-- Input validation
-- Regex sanitization
-- PII masking
-- Database encryption support
+- Modular LangGraph Architecture
+- Gemini Integration
+- AI Planner
+- AI Reasoner
+- Tool Executor
+- Final Answer Generator
+- Dynamic Routing
+- Memory Integration
+- Logging
+- Streamlit Interface
 
 ---
 
-# 🧠 Memory System
+# 🚀 Roadmap
 
-Three levels of memory:
+## Version 4.0
 
-### Short-Term Memory
+- Reflection Agent
+- Self-Correction
+- Multi-Agent Collaboration
+- Clinical Validation
+- Confidence Scoring
 
-- Current conversation
-- LangGraph state
+## Version 5.0
 
-### Long-Term Memory
-
-- SQL conversation history
-- Patient interactions
-
-### Semantic Memory
-
-- FAISS vector search
-- Context retrieval
-
----
-
-# 🧪 Running Tests
-
-Run the test suite:
-
-```bash
-python3 -m pytest tests/
-```
-
-The project includes automated tests for:
-
-- Database
-- Agent routing
-- Memory
-- Security
-- Tool execution
-
----
-
-# 📁 Database
-
-Default database:
-
-```
-healthcare_agent.db
-```
-
-ORM:
-
-- Patient
-- Session
-- Chat History
-- Medical Reports
-- Audit Logs
-- Tool History
-
----
-
-# 🎨 User Interface
-
-The application uses a modern Healthcare SaaS interface featuring:
-
-- Dark theme
-- Glassmorphism cards
-- Responsive layout
-- Professional dashboard
-- Modern sidebar
-- Interactive KPI cards
-- AI status indicators
-
----
-
-# 📌 Future Improvements
-
-- Multi-user authentication
-- Doctor dashboard
-- Role-based access control
-- Real-time notifications
-- Voice assistant
-- Medical image analysis
-- HL7/FHIR integration
-- PostgreSQL deployment
-- Docker support
-- Kubernetes deployment
-
----
-
-# 👨‍💻 Developed With
-
-- Streamlit
-- LangGraph
-- OpenAI
-- SQLAlchemy
-- FAISS
-- Python
+- Doctor Dashboard
+- Authentication
+- RAG Knowledge Base
+- Docker Deployment
+- CI/CD Pipeline
+- Cloud Deployment
 
 ---
 
 # 📄 License
 
 This project is intended for educational and research purposes.
+
+The assistant does **not** replace professional medical advice, diagnosis, or treatment.
+
+---
+
+# 👨‍💻 Author
+
+**Md Mobashir Imam**
+
+B.Tech Computer Science & Engineering
+
+National Institute of Technology Patna
+
+---
+
+⭐ If you found this project useful, consider giving it a star on GitHub.
