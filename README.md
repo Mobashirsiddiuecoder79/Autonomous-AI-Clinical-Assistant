@@ -193,8 +193,16 @@ LOG_LEVEL=INFO
 Run the application
 
 ```bash
-streamlit run frontend/app.py
+python3 -m streamlit run frontend/app.py \
+    --server.runOnSave true \
+    --server.fileWatcherType auto
 ```
+or 
+
+```bash
+python3 -m streamlit run frontend/app.py
+```
+
 
 ---
 
