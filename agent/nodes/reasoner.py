@@ -35,7 +35,7 @@ def reasoner_node(
 
         return {
 
-            "next_step": "final_answer"
+            "next_step": "reflector"
 
         }
 
@@ -47,8 +47,7 @@ def reasoner_node(
 
         return {
 
-            "next_step": "final_answer"
-
+            "next_step": "reflector"
         }
 
     tool_call = tool_calls[

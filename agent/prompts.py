@@ -152,19 +152,19 @@ Return ONLY JSON.
 
 If additional planning is required:
 
-{
-    "replan_needed":true,
-    "new_plan":[
+{{
+    "replan_needed": true,
+    "new_plan": [
         "...",
         "..."
     ]
-}
+}}
 
 Otherwise:
 
-{
-    "replan_needed":false
-}
+{{
+    "replan_needed": false
+}}
 """
 
 

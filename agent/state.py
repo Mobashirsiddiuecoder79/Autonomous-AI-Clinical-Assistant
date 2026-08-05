@@ -1,13 +1,12 @@
 from typing import TypedDict, List, Dict, Any, Annotated, Optional
 
-
 # ==========================================================
 # MESSAGE MERGER
 # ==========================================================
 
+
 def append_messages(
-    left: List[Dict[str, Any]],
-    right: List[Dict[str, Any]]
+    left: List[Dict[str, Any]], right: List[Dict[str, Any]]
 ) -> List[Dict[str, Any]]:
     """
     Merge conversation history while preserving
@@ -20,6 +19,7 @@ def append_messages(
 # LANGGRAPH SHARED STATE
 # ==========================================================
 
+
 class AgentState(TypedDict):
     """
     Shared state passed between every LangGraph node.
@@ -29,10 +29,7 @@ class AgentState(TypedDict):
     # Conversation
     # ------------------------------------------------------
 
-    messages: Annotated[
-        List[Dict[str, Any]],
-        append_messages
-    ]
+    messages: Annotated[List[Dict[str, Any]], append_messages]
 
     # ------------------------------------------------------
     # Patient Information
@@ -60,9 +57,7 @@ class AgentState(TypedDict):
     # AI Planner Output
     # ------------------------------------------------------
 
-    tool_calls: List[
-        Dict[str, Any]
-    ]
+    tool_calls: List[Dict[str, Any]]
 
     # ------------------------------------------------------
     # Workflow Planning
@@ -78,13 +73,9 @@ class AgentState(TypedDict):
     # Tool Execution
     # ------------------------------------------------------
 
-    next_tool_call: Optional[
-        Dict[str, Any]
-    ]
+    next_tool_call: Optional[Dict[str, Any]]
 
-    tool_outputs: List[
-        Dict[str, Any]
-    ]
+    tool_outputs: List[Dict[str, Any]]
 
     # ------------------------------------------------------
     # Errors
@@ -97,6 +88,16 @@ class AgentState(TypedDict):
     # ------------------------------------------------------
 
     next_step: str
+
+    # ------------------------------------------------------
+    # Reflection
+    # ------------------------------------------------------
+
+    reflection_count: int
+
+    confidence: float
+
+    reflection_feedback: Optional[str]
 
     # ------------------------------------------------------
     # Final Assistant Response

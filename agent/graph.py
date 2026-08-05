@@ -4,6 +4,7 @@ from langgraph.graph import StateGraph, END
 
 from agent.state import AgentState
 
+
 from agent.edges import (
     route_after_intent,
     route_after_planner,
@@ -19,7 +20,11 @@ from agent.nodes import (
 )
 
 # Temporary until we migrate reflector
-from agent.legacy_nodes import reflector_node
+from agent.nodes.reflector import reflector_node
+
+# temp 
+print("REFLECTOR MODULE:", reflector_node.__module__)
+print("REFLECTOR FUNCTION:", reflector_node.__name__)
 
 
 
@@ -228,6 +233,12 @@ def run_agent_flow(
     "errors": [],
 
     "next_step": "intent_detector",
+
+    "reflection_count": 0,
+
+    "confidence": 0.0,
+
+    "reflection_feedback": None,
 
     "final_output": None,
 }
