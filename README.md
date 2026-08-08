@@ -1,5 +1,11 @@
 # 🏥 Autonomous AI Clinical Assistant v3.0
 
+[🚀 **Live Demo — Try the AI Clinical Assistant**](https://autonomous-ai-clinical-assistant-tpuvax4eqjrmqevuqz88yk.streamlit.app/)
+
+An autonomous AI-powered healthcare assistant built using **LangGraph**, **Google Gemini**, **Streamlit**, **FAISS**, and **SQLite**.
+
+# 🏥 Autonomous AI Clinical Assistant v3.0
+
 An autonomous AI-powered healthcare assistant built using **LangGraph**, **Google Gemini 3.6 Flash**, **Streamlit**, **FAISS**, and **SQLite**.
 
 The assistant understands user intent, autonomously plans tasks, selects and executes clinical tools, reasons over tool outputs, and generates professional healthcare responses.
