@@ -57,6 +57,9 @@ if os.path.exists(css_path):
 # SIDEBAR
 # ==========================================================
 
+if "navigation" not in st.session_state:
+    st.session_state.navigation = "Dashboard"
+    
 navigation = render_sidebar()
 
 
