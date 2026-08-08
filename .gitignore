@@ -36,3 +36,4 @@ uploads/
 # Autonomous_Healthcare_Agent_Report.docx
 Autonomous_Healthcare_Agent_Report.docx
 .venv/
+*.pdf
