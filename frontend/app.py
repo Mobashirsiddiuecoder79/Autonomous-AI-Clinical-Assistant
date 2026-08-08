@@ -1,6 +1,15 @@
 import os
 import streamlit as st
 
+import sys
+
+# Add project root to Python path
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
+import streamlit as st
+
 from database.connection import init_db
 
 from frontend.components.sidebar import render_sidebar
