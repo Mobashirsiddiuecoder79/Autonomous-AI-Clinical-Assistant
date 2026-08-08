@@ -35,3 +35,4 @@ uploads/
 # Documentation (optional)
 # Autonomous_Healthcare_Agent_Report.docx
 Autonomous_Healthcare_Agent_Report.docx
+.venv/
