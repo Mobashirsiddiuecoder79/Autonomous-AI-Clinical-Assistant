@@ -37,3 +37,7 @@ uploads/
 Autonomous_Healthcare_Agent_Report.docx
 .venv/
 *.pdf
+
+.streamlit/secrets.toml
+.streamlit/google_oauth.json
+.streamlit/secrets.toml

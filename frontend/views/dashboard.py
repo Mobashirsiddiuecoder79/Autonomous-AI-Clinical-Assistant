@@ -60,9 +60,16 @@ def get_session_count(patient_id):
 
 def load_patients():
 
+    patient_id = st.session_state.get("active_patient_id")
+
+    if not patient_id:
+        return []
+
     with get_db() as db:
 
-        return list_patients(db)
+        patient = get_patient(db, patient_id)
+
+        return [patient] if patient else []
 
 
 def load_patient(patient_id):
@@ -164,41 +171,37 @@ def register_patient():
 
 def select_patient(patients):
 
-    if not patients:
-
-        return None
-
-    patient_map = {
-
-        p.id:
-        f"{p.first_name} {p.last_name}"
-
-        for p in patients
-
-    }
-
-    if "active_patient_id" not in st.session_state:
-
-        st.session_state.active_patient_id = patients[0].id
-
-    selected = st.selectbox(
-
-        "👤 Active Patient",
-
-        options=list(patient_map.keys()),
-
-        index=list(patient_map.keys()).index(
-            st.session_state.active_patient_id
-        ),
-
-        format_func=lambda pid:
-            f"{patient_map[pid]}  (ID {pid})",
-
+    authenticated_patient_id = st.session_state.get(
+        "active_patient_id"
     )
 
-    st.session_state.active_patient_id = selected
+    if not authenticated_patient_id:
+        return None
 
-    return selected
+    authenticated_patient = next(
+        (
+            patient
+            for patient in patients
+            if patient.id == authenticated_patient_id
+        ),
+        None,
+    )
+
+    if authenticated_patient is None:
+        st.error("Unable to load your patient profile.")
+        return None
+
+    st.session_state.active_patient_id = authenticated_patient.id
+
+    st.markdown(
+        f"**👤 Patient:** "
+        f"{authenticated_patient.first_name} "
+        f"{authenticated_patient.last_name} "
+        f"(ID {authenticated_patient.id})"
+    )
+
+    return authenticated_patient.id
+
 
 # ==========================================================
 # HEADER
