@@ -12,6 +12,6 @@ pydantic-settings==2.14.2
 pytesseract==0.3.13
 pytest==9.1.1
 SQLAlchemy==2.0.51
-streamlit==1.44.1
+streamlit==1.46.1
 faiss-cpu==1.15.0
 Authlib==1.6.5
