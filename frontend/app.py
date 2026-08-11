@@ -15,8 +15,9 @@ from frontend.components.sidebar import render_sidebar
 from frontend.views.dashboard import show_dashboard
 from frontend.views.chat import show_chat
 from frontend.views.reports import show_reports
-from frontend.views.settings import show_settings
-
+from frontend.views.user_settings import render_user_settings
+from frontend.auth.authentication import require_authentication
+require_authentication()
 
 # ==========================================================
 # PAGE CONFIGURATION
@@ -81,7 +82,7 @@ elif navigation == "🧪 Lab Reports":
 
 elif navigation == "⚙️ Settings":
 
-    show_settings()
+    render_user_settings()
 
 else:
 
