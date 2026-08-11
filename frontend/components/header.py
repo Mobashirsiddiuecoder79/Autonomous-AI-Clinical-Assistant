@@ -228,7 +228,7 @@ Built with
 
 <br><br>
 
-Version 3.0.0
+Version 3.1.0
 
 </div>
 """,

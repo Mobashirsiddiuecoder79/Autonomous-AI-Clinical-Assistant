@@ -215,7 +215,7 @@ No patient selected
             """
 <div class="sidebar-footer">
 
-Version <b>2.0.0</b>
+Version <b>3.1.0</b>
 
 <br><br>
 
