@@ -131,13 +131,17 @@ The assistant understands user intent, autonomously plans tasks, selects and exe
                                          ┌────────────────┐
                                          │ Final Answer   │
                                          └────────────────┘
+```
 
-🔐 Authentication Architecture
+---
+
+# 🔐 Authentication Architecture
 
 The application uses Google authentication through Streamlit’s authentication system.
 
 The authenticated Google email is used to identify the corresponding healthcare patient.
 
+```text
 Google Account
       │
       ▼
@@ -164,8 +168,9 @@ Existing Patient   No Patient
               │
               ▼
        Healthcare Dashboard
+```
 
-Existing Patient
+## Existing Patient
 
 If the authenticated Google email matches an existing patient email:
 
@@ -188,9 +193,9 @@ The user provides:
 
 The application then creates a new patient record using the authenticated Google email.
 
-⸻
+---
 
-🛡️ Authentication Security
+# 🛡️ Authentication Security
 
 The application does not hardcode the authenticated user’s email.
 
@@ -198,6 +203,7 @@ The email is obtained from the authenticated identity provider.
 
 Patient authorization follows:
 
+```text
 Authenticated Google Email
             │
             ▼
@@ -205,6 +211,7 @@ Authenticated Google Email
             │
             ▼
       Patient Record
+```
 
 If authentication succeeds but no patient record exists, the application allows the authenticated user to create their healthcare profile.
 
