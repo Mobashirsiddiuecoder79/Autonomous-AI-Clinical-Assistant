@@ -263,46 +263,20 @@ Health-care-Agent/
 ├── requirements.txt
 └── main.py
 
-⚙️ Technology Stack
+# ⚙️ Technology Stack
 
-Technology
-
-Purpose
-
-Python
-
-Application Backend
-
-LangGraph
-
-Stateful AI Workflow Engine
-
-LangChain
-
-LLM Integration
-
-Google Gemini
-
-AI Reasoning
-
-Streamlit
-
-Web Application
-
-SQLite
-
-Relational Database
-
-SQLAlchemy.  
-
-
-
-FAISS       Vector Memory
-
-Authlib     OAuth / Authentication Support
-
-Pydantic    Data Validation
-
+| Technology | Purpose |
+|------------|---------|
+| Python | Application Backend |
+| LangGraph | Stateful AI Workflow Engine |
+| LangChain | LLM Integration |
+| Google Gemini | AI Reasoning |
+| Streamlit | Web Application |
+| SQLite | Relational Database |
+| SQLAlchemy | Database ORM |
+| FAISS | Vector Memory |
+| Authlib | OAuth / Authentication Support |
+| Pydantic | Data Validation |
 
 🧠 AI Workflow
 
