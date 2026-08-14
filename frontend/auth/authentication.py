@@ -152,9 +152,15 @@ def create_new_patient_account():
             disabled=True,
         )
 
+        from datetime import date
+
+        today = date.today()
+
         date_of_birth = st.date_input(
             "Date of Birth",
             value=None,
+            min_value=date(today.year - 100, today.month, today.day),
+            max_value=today,
         )
 
         gender = st.selectbox(
