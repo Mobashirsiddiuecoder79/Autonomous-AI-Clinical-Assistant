@@ -35,46 +35,65 @@ def html(content: str):
 def render_header():
 
     html("""
-<div class="glass-card">
+<div class="glass-card" style="
+    padding: 26px 30px;
+    margin-bottom: 24px;
+">
 
-<div style="display:flex;
-justify-content:space-between;
-align-items:center;">
+<div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
+">
 
 <div>
 
-<h1 class="gradient-title"
-style="margin-bottom:4px;">
+<div style="
+    font-size:30px;
+    font-weight:700;
+    letter-spacing:-0.5px;
+    color:#e5edf8;
+">
 
 🤖 Autonomous Clinical Assistant
 
-</h1>
-
-<div style="color:#94a3b8;
-font-size:15px;">
-
-AI-powered Healthcare Decision Support System
-
 </div>
-
-</div>
-
-<div style="text-align:right;">
 
 <div style="
-font-size:14px;
-font-weight:700;
-color:#22c55e;">
+    margin-top:7px;
+    color:#94a3b8;
+    font-size:14px;
+">
 
-🟢 AI Online
+AI-powered healthcare decision support
+
+</div>
 
 </div>
 
 <div style="
-font-size:13px;
-color:#94a3b8;">
+    text-align:right;
+    min-width:140px;
+">
 
-Model : GPT-4o-mini
+<div style="
+    font-size:14px;
+    font-weight:600;
+    color:#22c55e;
+">
+
+<span style="font-size:13px;">●</span> AI Online
+
+</div>
+
+<div style="
+    margin-top:6px;
+    font-size:13px;
+    color:#94a3b8;
+">
+
+Google Gemini
 
 </div>
 
@@ -133,42 +152,7 @@ def render_patient_card(patient):
 
 
 # ==========================================================
-# AI STATUS
 # ==========================================================
-
-def render_ai_status():
-
-    html("""
-<div class="glass-card">
-
-<h3>🧠 AI Status</h3>
-
-<hr>
-
-<div class="badge-success">
-Database Connected
-</div>
-
-<br><br>
-
-<div class="badge-success">
-Vector Memory Ready
-</div>
-
-<br><br>
-
-<div class="badge-success">
-LangGraph Running
-</div>
-
-<br><br>
-
-<div class="badge-success">
-Clinical Agent Ready
-</div>
-
-</div>
-""")
 
 # ==========================================================
 # SUGGESTED PROMPTS
@@ -284,7 +268,6 @@ def show_chat():
 
         render_patient_card(patient)
 
-        render_ai_status()
 
         suggested_prompt = render_suggestions()
 
@@ -294,7 +277,6 @@ def show_chat():
 
     with main:
 
-        st.markdown("## 💬 Clinical Conversation")
 
         with get_db() as db:
 
@@ -310,39 +292,229 @@ def show_chat():
         if not history:
 
             html("""
-<div class="glass-card"
-style="text-align:center;padding:45px;">
+<div class="glass-card" style="
+    padding:22px 26px;
+    text-align:center;
+    margin-bottom:24px;
+">
 
-<h2>👋 Welcome</h2>
+<div style="
+    font-size:30px;
+    margin-bottom:8px;
+">
 
-<p>
+👋
 
-Ask the AI Healthcare Assistant anything.
-
-</p>
-
-<br>
-
-<div class="badge-success">
-🩺 BMI Calculator
 </div>
 
-<br><br>
+<div style="
+    font-size:25px;
+    font-weight:700;
+    color:#f1f5f9;
+    margin-bottom:10px;
+">
 
-<div class="badge-success">
-💊 Drug Interaction Checker
+Welcome
+
 </div>
 
-<br><br>
+<div style="
+    color:#94a3b8;
+    font-size:15px;
+    margin-bottom:16px;
+">
 
-<div class="badge-success">
-📄 Medical Report Analysis
+Ask your AI Healthcare Assistant about your health, medications,
+reports, appointments, or clinical concerns.
+
 </div>
 
-<br><br>
+<div style="
+    text-align:left;
+    margin-bottom:14px;
+">
 
-<div class="badge-success">
-📅 Appointment Scheduling
+<div style="
+    font-size:14px;
+    font-weight:600;
+    color:#cbd5e1;
+">
+
+Clinical Tools
+
+</div>
+
+<div style="
+    font-size:12px;
+    color:#64748b;
+    margin-top:3px;
+">
+
+Choose a topic to get started
+
+</div>
+
+</div>
+
+<div style="
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:10px;
+    margin-top:10px;
+">
+
+<div style="
+    padding:11px 12px;
+    border:1px solid rgba(34,197,94,0.18);
+    border-radius:14px;
+    background:rgba(34,197,94,0.07);
+">
+
+<div style="
+    font-size:18px;
+    margin-bottom:7px;
+">
+
+🩺
+
+</div>
+
+<div style="
+    color:#e2e8f0;
+    font-size:14px;
+    font-weight:600;
+">
+
+BMI Calculator
+
+</div>
+
+<div style="
+    color:#64748b;
+    font-size:11px;
+    margin-top:4px;
+">
+
+Calculate BMI
+
+</div>
+
+</div>
+
+<div style="
+    padding:11px 12px;
+    border:1px solid rgba(34,197,94,0.18);
+    border-radius:14px;
+    background:rgba(34,197,94,0.07);
+">
+
+<div style="
+    font-size:18px;
+    margin-bottom:7px;
+">
+
+💊
+
+</div>
+
+<div style="
+    color:#e2e8f0;
+    font-size:14px;
+    font-weight:600;
+">
+
+Drug Interaction Checker
+
+</div>
+
+<div style="
+    color:#64748b;
+    font-size:11px;
+    margin-top:4px;
+">
+
+Check medication interactions
+
+</div>
+
+</div>
+
+<div style="
+    padding:11px 12px;
+    border:1px solid rgba(34,197,94,0.18);
+    border-radius:14px;
+    background:rgba(34,197,94,0.07);
+">
+
+<div style="
+    font-size:18px;
+    margin-bottom:7px;
+">
+
+📄
+
+</div>
+
+<div style="
+    color:#e2e8f0;
+    font-size:14px;
+    font-weight:600;
+">
+
+Medical Report Analysis
+
+</div>
+
+<div style="
+    color:#64748b;
+    font-size:11px;
+    margin-top:4px;
+">
+
+Understand medical reports
+
+</div>
+
+</div>
+
+<div style="
+    padding:11px 12px;
+    border:1px solid rgba(34,197,94,0.18);
+    border-radius:14px;
+    background:rgba(34,197,94,0.07);
+">
+
+<div style="
+    font-size:18px;
+    margin-bottom:7px;
+">
+
+📅
+
+</div>
+
+<div style="
+    color:#e2e8f0;
+    font-size:14px;
+    font-weight:600;
+">
+
+Appointment Scheduling
+
+</div>
+
+<div style="
+    color:#64748b;
+    font-size:11px;
+    margin-top:4px;
+">
+
+Manage appointments
+
+</div>
+
+</div>
+
 </div>
 
 </div>
