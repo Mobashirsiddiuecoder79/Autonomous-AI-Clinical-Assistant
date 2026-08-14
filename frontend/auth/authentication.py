@@ -248,7 +248,7 @@ def require_authentication():
 
     if not is_authenticated():
 
-        st.markdown(
+        st.html(
             """
             <div style="
                 max-width: 520px;
@@ -270,8 +270,7 @@ def require_authentication():
                     Please authenticate to continue.
                 </p>
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
 
         st.button(
