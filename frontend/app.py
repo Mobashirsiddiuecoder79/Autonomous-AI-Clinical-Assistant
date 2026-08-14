@@ -9,6 +9,15 @@ if PROJECT_ROOT not in sys.path:
 import streamlit as st
 
 from database.connection import init_db
+from database import models
+
+# ==========================================================
+# DATABASE INITIALIZATION
+# ==========================================================
+
+# Create all database tables before authentication.
+# This is required for fresh Streamlit Cloud deployments.
+init_db()
 
 from frontend.components.sidebar import render_sidebar
 
@@ -17,6 +26,7 @@ from frontend.views.chat import show_chat
 from frontend.views.reports import show_reports
 from frontend.views.user_settings import render_user_settings
 from frontend.auth.authentication import require_authentication
+
 require_authentication()
 
 # ==========================================================
@@ -29,13 +39,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-
-# ==========================================================
-# DATABASE INITIALIZATION
-# ==========================================================
-
-init_db()
 
 
 # ==========================================================
