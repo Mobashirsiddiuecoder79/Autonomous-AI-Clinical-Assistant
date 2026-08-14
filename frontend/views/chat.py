@@ -112,40 +112,190 @@ Google Gemini
 def render_patient_card(patient):
 
     html(f"""
-<div class="glass-card">
+<div class="glass-card" style="
+    padding:24px;
+    margin-bottom:8px;
+">
 
-<h3>👤 Active Patient</h3>
+<div style="
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:22px;
+">
 
-<hr>
+<div style="
+    display:flex;
+    align-items:center;
+    gap:14px;
+">
 
-<table style="width:100%;">
+<div style="
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(59,130,246,0.14);
+    border:1px solid rgba(59,130,246,0.25);
+    font-size:25px;
+">
 
-<tr>
-<td><b>Name</b></td>
-<td>{patient.first_name} {patient.last_name}</td>
-</tr>
+👤
 
-<tr>
-<td><b>ID</b></td>
-<td>{patient.id}</td>
-</tr>
+</div>
 
-<tr>
-<td><b>Gender</b></td>
-<td>{patient.gender}</td>
-</tr>
+<div>
 
-<tr>
-<td><b>Date of Birth</b></td>
-<td>{patient.date_of_birth}</td>
-</tr>
+<div style="
+    font-size:17px;
+    font-weight:700;
+    color:#e5edf8;
+">
 
-<tr>
-<td><b>Email</b></td>
-<td>{patient.email}</td>
-</tr>
+{patient.first_name} {patient.last_name}
 
-</table>
+</div>
+
+<div style="
+    margin-top:3px;
+    font-size:12px;
+    color:#94a3b8;
+">
+
+Patient ID #{patient.id}
+
+</div>
+
+</div>
+
+</div>
+
+<div style="
+    padding:5px 10px;
+    border-radius:999px;
+    background:rgba(34,197,94,0.12);
+    border:1px solid rgba(34,197,94,0.25);
+    color:#22c55e;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.4px;
+">
+
+● ACTIVE
+
+</div>
+
+</div>
+
+<div style="
+    height:1px;
+    background:rgba(148,163,184,0.18);
+    margin-bottom:18px;
+"></div>
+
+<div style="
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+">
+
+<div style="
+    padding:12px;
+    border-radius:12px;
+    background:rgba(15,23,42,0.42);
+    border:1px solid rgba(148,163,184,0.10);
+">
+
+<div style="
+    font-size:11px;
+    color:#94a3b8;
+    margin-bottom:5px;
+">
+
+GENDER
+
+</div>
+
+<div style="
+    font-size:14px;
+    font-weight:600;
+    color:#e5edf8;
+">
+
+{patient.gender}
+
+</div>
+
+</div>
+
+<div style="
+    padding:12px;
+    border-radius:12px;
+    background:rgba(15,23,42,0.42);
+    border:1px solid rgba(148,163,184,0.10);
+">
+
+<div style="
+    font-size:11px;
+    color:#94a3b8;
+    margin-bottom:5px;
+">
+
+DATE OF BIRTH
+
+</div>
+
+<div style="
+    font-size:14px;
+    font-weight:600;
+    color:#e5edf8;
+">
+
+{patient.date_of_birth}
+
+</div>
+
+</div>
+
+</div>
+
+<div style="
+    margin-top:10px;
+    padding:12px;
+    border-radius:12px;
+    background:rgba(15,23,42,0.42);
+    border:1px solid rgba(148,163,184,0.10);
+">
+
+<div style="
+    font-size:11px;
+    color:#94a3b8;
+    margin-bottom:5px;
+">
+
+EMAIL
+
+</div>
+
+<div style="
+    font-size:13px;
+    font-weight:500;
+    color:#cbd5e1 !important;
+    text-decoration:none !important;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+"
+title="{patient.email}">
+
+{patient.email}
+
+</div>
+
+</div>
 
 </div>
 """)
