@@ -35,13 +35,24 @@ def is_admin():
     )
 
 
-if "navigation" not in st.session_state:
-    st.session_state.navigation = "🏠 Dashboard"
-
-
 def render_sidebar():
 
+    # ==========================================================
+    # DEFAULT NAVIGATION
+    # ==========================================================
+
+    if "navigation" not in st.session_state:
+
+        if is_admin():
+            st.session_state.navigation = "👥 Patients"
+        else:
+            st.session_state.navigation = "🏠 Dashboard"
+
     with st.sidebar:
+
+        # ======================================================
+        # LOGO
+        # ======================================================
 
         st.markdown(
             """
@@ -68,6 +79,10 @@ Autonomous Healthcare Platform
             '<div class="sidebar-divider"></div>',
             unsafe_allow_html=True,
         )
+
+        # ======================================================
+        # ACTIVE PATIENT
+        # ======================================================
 
         patient_id = st.session_state.get(
             "active_patient_id",
@@ -124,6 +139,10 @@ No patient selected
                 unsafe_allow_html=True,
             )
 
+        # ======================================================
+        # NAVIGATION
+        # ======================================================
+
         st.markdown(
             '<div class="sidebar-section-title">Navigation</div>',
             unsafe_allow_html=True,
@@ -138,6 +157,10 @@ No patient selected
             ):
                 st.session_state.navigation = page
 
+        # ======================================================
+        # ADMINISTRATION
+        # ======================================================
+
         if is_admin():
 
             st.markdown(
@@ -151,6 +174,10 @@ No patient selected
                 use_container_width=True,
             ):
                 st.session_state.navigation = "👥 Patients"
+
+        # ======================================================
+        # QUICK ACTIONS
+        # ======================================================
 
         st.markdown(
             '<div class="sidebar-divider"></div>',
@@ -179,6 +206,10 @@ No patient selected
                 use_container_width=True,
             ):
                 st.session_state.navigation = "🤖 AI Assistant"
+
+        # ======================================================
+        # SYSTEM STATUS
+        # ======================================================
 
         st.markdown(
             '<div class="sidebar-divider"></div>',
@@ -213,6 +244,10 @@ No patient selected
 """,
                 unsafe_allow_html=True,
             )
+
+        # ======================================================
+        # FOOTER
+        # ======================================================
 
         st.markdown(
             '<div class="sidebar-divider"></div>',
