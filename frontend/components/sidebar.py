@@ -1,9 +1,10 @@
 import streamlit as st
 
+from frontend.auth.authentication import (
+    is_authenticated,
+    get_authenticated_email,
+)
 
-# ==========================================================
-# SIDEBAR
-# ==========================================================
 
 PAGES = [
     ("🏠 Dashboard", "🏠 Dashboard"),
@@ -13,25 +14,34 @@ PAGES = [
 ]
 
 
-# ==========================================================
-# INITIALIZE SESSION
-# ==========================================================
+def is_admin():
+
+    if not is_authenticated():
+        return False
+
+    authenticated_email = get_authenticated_email()
+
+    if not authenticated_email:
+        return False
+
+    try:
+        admin_email = st.secrets["admin"]["email"]
+    except Exception:
+        return False
+
+    return (
+        authenticated_email.strip().lower()
+        == str(admin_email).strip().lower()
+    )
+
 
 if "navigation" not in st.session_state:
     st.session_state.navigation = "🏠 Dashboard"
 
 
-# ==========================================================
-# SIDEBAR
-# ==========================================================
-
 def render_sidebar():
 
     with st.sidebar:
-
-        # --------------------------------------------------
-        # LOGO
-        # --------------------------------------------------
 
         st.markdown(
             """
@@ -58,10 +68,6 @@ Autonomous Healthcare Platform
             '<div class="sidebar-divider"></div>',
             unsafe_allow_html=True,
         )
-
-        # --------------------------------------------------
-        # ACTIVE PATIENT
-        # --------------------------------------------------
 
         patient_id = st.session_state.get(
             "active_patient_id",
@@ -118,10 +124,6 @@ No patient selected
                 unsafe_allow_html=True,
             )
 
-        # --------------------------------------------------
-        # NAVIGATION
-        # --------------------------------------------------
-
         st.markdown(
             '<div class="sidebar-section-title">Navigation</div>',
             unsafe_allow_html=True,
@@ -136,14 +138,24 @@ No patient selected
             ):
                 st.session_state.navigation = page
 
+        if is_admin():
+
+            st.markdown(
+                '<div class="sidebar-section-title">Administration</div>',
+                unsafe_allow_html=True,
+            )
+
+            if st.button(
+                "👥 Patients",
+                key="nav_admin_patients",
+                use_container_width=True,
+            ):
+                st.session_state.navigation = "👥 Patients"
+
         st.markdown(
             '<div class="sidebar-divider"></div>',
             unsafe_allow_html=True,
         )
-
-        # --------------------------------------------------
-        # QUICK ACTIONS
-        # --------------------------------------------------
 
         st.markdown(
             '<div class="sidebar-section-title">Quick Actions</div>',
@@ -172,10 +184,6 @@ No patient selected
             '<div class="sidebar-divider"></div>',
             unsafe_allow_html=True,
         )
-
-        # --------------------------------------------------
-        # SYSTEM STATUS
-        # --------------------------------------------------
 
         st.markdown(
             '<div class="sidebar-section-title">System Status</div>',
@@ -215,7 +223,7 @@ No patient selected
             """
 <div class="sidebar-footer">
 
-Version <b>3.1.0</b>
+Version <b>4.0.0</b>
 
 <br><br>
 

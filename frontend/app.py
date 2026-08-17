@@ -3,6 +3,7 @@ import sys
 
 # Add project root to Python path
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
@@ -10,6 +11,7 @@ import streamlit as st
 
 from database.connection import init_db
 from database import models
+from frontend.views.admin import show_admin_patients
 
 # ==========================================================
 # DATABASE INITIALIZATION
@@ -37,9 +39,8 @@ st.set_page_config(
     page_title="AI Clinical Assistant",
     page_icon="🏥",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
 )
-
 
 # ==========================================================
 # LOAD CUSTOM CSS
@@ -53,19 +54,17 @@ if os.path.exists(css_path):
 
         st.markdown(
             f"<style>{css_file.read()}</style>",
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )
-
 
 # ==========================================================
 # SIDEBAR
 # ==========================================================
 
 if "navigation" not in st.session_state:
-    st.session_state.navigation = "Dashboard"
-    
-navigation = render_sidebar()
+    st.session_state.navigation = "🏠 Dashboard"
 
+navigation = render_sidebar()
 
 # ==========================================================
 # PAGE ROUTER
@@ -87,17 +86,19 @@ elif navigation == "⚙️ Settings":
 
     render_user_settings()
 
+elif navigation == "👥 Patients":
+
+    show_admin_patients()
+
 else:
 
     st.error("Unknown page selected.")
 
     show_dashboard()
 
-
 # ==========================================================
 # FOOTER
 # ==========================================================
-
 
 from frontend.components.header import page_footer
 

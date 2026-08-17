@@ -1,4 +1,4 @@
-# 🏥 Autonomous AI Clinical Assistant v3.1
+# 🏥 Autonomous AI Clinical Assistant v4.0
 
 [🚀 **Live Demo — Try the AI Clinical Assistant**](https://autonomous-ai-clinical-assistant-tpuvax4eqjrmqevuqz88yk.streamlit.app/)
 
@@ -10,7 +10,7 @@ The assistant understands user intent, autonomously plans tasks, selects and exe
 
 # 🚀 Version
 
-**Current Version:** `v3.1`
+**Current Version:** `v4.0`
 
 ---
 
@@ -619,7 +619,7 @@ pytest tests/
 
 📈 Current Development Status
 
-✅ Version 3.1
+✅ Version 4.0
 
 Completed:
 
