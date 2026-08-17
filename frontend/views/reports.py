@@ -1,5 +1,6 @@
 import os
 import textwrap
+from html import escape
 
 import streamlit as st
 
@@ -9,6 +10,7 @@ from database.operations import (
     get_medical_reports,
     get_patient
 )
+from database.models import MedicalReport
 
 from tools.document_tools import (
     MedicalReportParserTool,
@@ -298,6 +300,37 @@ Ready for Analysis
 
                 )
 
+            # --------------------------------------------------
+            # KEEP ONLY THE 5 LATEST REPORTS FOR THIS PATIENT
+            # --------------------------------------------------
+
+            with get_db() as db:
+
+                patient_reports = get_medical_reports(
+                    db,
+                    patient_id
+                )
+
+                old_reports = patient_reports[5:]
+
+                for old_report in old_reports:
+
+                    old_file_path = os.path.join(
+                        UPLOAD_DIR,
+                        old_report.file_name
+                    )
+
+                    if os.path.exists(old_file_path):
+                        try:
+                            os.remove(old_file_path)
+                        except OSError:
+                            pass
+
+                    db.delete(old_report)
+
+                if old_reports:
+                    db.commit()
+
             progress.progress(100)
 
             status.success(
@@ -571,7 +604,7 @@ Ready for Analysis
             html(f"""
 <div class="glass-card">
 
-<h3>⚠ Clinical Recommendations</h3>
+<h3>⚠ Clinical Review & Recommendations</h3>
 
 <p>
 
@@ -586,20 +619,45 @@ Ready for Analysis
             # EXTRACTED TEXT
             # --------------------------------------------------
 
-            st.text_area(
+            # --------------------------------------------------
+            # PROFESSIONAL EXTRACTED REPORT VIEWER
+            # --------------------------------------------------
 
-                "Extracted Text",
-
-                value=report.extracted_text,
-
-                height=220,
-
-                disabled=True,
-
-                key=f"report_history_{report.id}_{index}"
-
+            extracted_text = escape(
+                report.extracted_text or "No report content available."
             )
 
+            st.html(f"""
+<div style="
+    margin-top:24px;
+    border:1px solid rgba(148,163,184,0.18);
+    border-radius:18px;
+    overflow:hidden;
+    background:#111827;
+    box-shadow:0 10px 30px rgba(0,0,0,0.16);
+">
+
+    <div style="
+        padding:24px 28px;
+        max-height:500px;
+        overflow-y:auto;
+        background:#111827;
+    ">
+
+        <div style="
+            color:#d1d5db;
+            font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+            font-size:13px;
+            line-height:1.75;
+            letter-spacing:0.05px;
+            white-space:pre-wrap;
+            word-break:break-word;
+        ">{extracted_text}</div>
+
+    </div>
+
+</div>
+""")
     # ==========================================================
     # ARCHIVE STATISTICS
     # ==========================================================
@@ -676,47 +734,62 @@ Ready for Analysis
     )
 
     # ==========================================================
-    # CLEAN UP
+    # REPORT MANAGEMENT
     # ==========================================================
 
     st.divider()
 
-    st.markdown("## 🗂 Maintenance")
+    st.markdown("## 🗑️ Report Management")
+
+    report_options = {
+        f"{report.file_name} — {report.uploaded_at.strftime('%d %b %Y %H:%M')} (ID: {report.id})": report
+        for report in reports
+    }
+
+    selected_label = st.selectbox(
+        "Select a report to delete",
+        options=list(report_options.keys()),
+        key="delete_report_selector"
+    )
+
+    selected_report = report_options[selected_label]
 
     if st.button(
-
-        "🧹 Clear Uploaded Files Folder",
-
+        "🗑️ Delete Selected Report",
         use_container_width=True,
-
-        type="secondary"
-
+        type="secondary",
+        key="delete_selected_report"
     ):
 
-        removed = 0
+        with get_db() as db:
 
-        if os.path.exists(UPLOAD_DIR):
+            report_to_delete = db.query(MedicalReport).filter(
+                MedicalReport.id == selected_report.id,
+                MedicalReport.patient_id == patient_id
+            ).first()
 
-            for file in os.listdir(UPLOAD_DIR):
+            if report_to_delete:
 
-                path = os.path.join(
+                file_path = os.path.join(
                     UPLOAD_DIR,
-                    file
+                    report_to_delete.file_name
                 )
 
-                try:
+                if os.path.exists(file_path):
+                    try:
+                        os.remove(file_path)
+                    except OSError:
+                        pass
 
-                    os.remove(path)
+                db.delete(report_to_delete)
+                db.commit()
 
-                    removed += 1
-
-                except Exception:
-
-                    pass
-
-        st.success(
-            f"{removed} uploaded file(s) removed."
-        )
+                st.success(
+                    f"Report '{selected_report.file_name}' deleted successfully."
+                )
+                st.rerun()
+            else:
+                st.error("Selected report could not be found.")
 
     # ==========================================================
     # FOOTER

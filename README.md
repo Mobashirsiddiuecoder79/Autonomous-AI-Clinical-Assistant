@@ -1,4 +1,4 @@
-# 🏥 Autonomous AI Clinical Assistant v4.0
+# 🏥 Autonomous AI Clinical Assistant v4.1.0
 
 [🚀 **Live Demo — Try the AI Clinical Assistant**](https://autonomous-ai-clinical-assistant-tpuvax4eqjrmqevuqz88yk.streamlit.app/)
 
@@ -10,7 +10,14 @@ The assistant understands user intent, autonomously plans tasks, selects and exe
 
 # 🚀 Version
 
-**Current Version:** `v4.0`
+**Current Version:** `v4.1.0`
+
+### Version 4.1.0
+
+- Added per-patient medical report retention with a maximum of 5 latest reports
+- Added individual report deletion from the Patient Report Archive
+- Improved report archive ordering and professional extracted-report presentation
+- Improved laboratory reference-range parsing for comma-separated values
 
 ---
 

@@ -135,7 +135,7 @@ def create_medical_report(
     return report
 
 def get_medical_reports(db: Session, patient_id: int) -> List[MedicalReport]:
-    return db.query(MedicalReport).filter(MedicalReport.patient_id == patient_id).all()
+    return db.query(MedicalReport).filter(MedicalReport.patient_id == patient_id).order_by(MedicalReport.uploaded_at.desc(), MedicalReport.id.desc()).all()
 
 
 # ----------------- TOOL HISTORY -----------------
